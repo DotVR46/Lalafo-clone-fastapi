@@ -2,7 +2,7 @@ __all__ = (
     "Base",
     "DatabaseHelper",
     "db_helper",
-    # "Item",
+    "Product",
     "User",
     # "Post",
     # "Profile",
@@ -10,8 +10,5 @@ __all__ = (
 
 from .base import Base
 from core.database.db_helper import DatabaseHelper, db_helper
-
-# from .item import Item
 from .user import User
-# from .post import Post
-# from .profile import Profile
+from .product import Product
