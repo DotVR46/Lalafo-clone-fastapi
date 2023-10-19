@@ -10,7 +10,7 @@ CURRENCY_CHOICES = ("Сом", "USD")
 class Category(Base):
     title: Mapped[str] = mapped_column(String(20))
     description: Mapped[str] = mapped_column(String(100))
-    parent_id: Mapped[int] = mapped_column(Integer, ForeignKey("categorys.id"), nullable=True)
+    parent_id: Mapped[int] = mapped_column(Integer, ForeignKey("categories.id"), nullable=True)
     children: Mapped["Category"] = relationship("Category")
     products: Mapped[list["Product"]] = relationship(back_populates="category")
 
@@ -31,7 +31,7 @@ class Product(UserRelationMixin, Base):
     currency: Mapped[str] = mapped_column(
         Enum(*CURRENCY_CHOICES, name="Currency choices")
     )
-    category_id: Mapped[int] = mapped_column(ForeignKey("categorys.id"))
+    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
     category: Mapped["Category"] = relationship(back_populates="category")
 
     def __str__(self):
