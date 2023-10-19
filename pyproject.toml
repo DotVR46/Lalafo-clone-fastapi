@@ -17,6 +17,7 @@ sqlalchemy = {extras = ["asyncio"], version = "^2.0.21"}
 pydantic = {extras = ["email"], version = "^2.4.2"}
 email-validator = "^2.0.0.post2"
 asyncpg = "^0.28.0"
+inflect = "^7.0.0"
 
 
 [build-system]
