@@ -6,11 +6,11 @@ from users.schemas import UserBase, User
 class CategoryBase(BaseModel):
     title: str
     description: str
+    parent_id: int
 
 
 class Category(CategoryBase):
     model_config = ConfigDict(from_attributes=True)
-
     id: int
 
 
