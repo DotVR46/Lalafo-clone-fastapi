@@ -1,12 +1,17 @@
 from pydantic import BaseModel, ConfigDict
 
-from users.schemas import UserBase
+from users.schemas import UserBase, User
 
 
 class CategoryBase(BaseModel):
-    id: int
     title: str
     description: str
+
+
+class Category(CategoryBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
 
 
 class ProductBase(BaseModel):
@@ -15,8 +20,8 @@ class ProductBase(BaseModel):
     city: str
     price: int
     currency: str
-    category: CategoryBase
-    user: UserBase
+    category: Category
+    user: User
 
 
 class Product(ProductBase):
