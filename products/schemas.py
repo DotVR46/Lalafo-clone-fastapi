@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from users.schemas import UserBase
+
 
 class CategoryBase(BaseModel):
     id: int
@@ -14,3 +16,4 @@ class ProductBase(BaseModel):
     price: int
     currency: str
     category: CategoryBase
+    user: UserBase
