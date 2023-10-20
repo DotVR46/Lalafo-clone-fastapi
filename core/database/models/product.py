@@ -27,7 +27,7 @@ class Category(Base):
 
 class Product(UserRelationMixin, Base):
     _user_id_unique = False
-    _user_back_populates = "product"
+    _user_back_populates = "products"
 
     title: Mapped[str] = mapped_column(String(60))
     description: Mapped[str] = mapped_column(String(300))
@@ -40,7 +40,7 @@ class Product(UserRelationMixin, Base):
         )
     )
     category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
-    category: Mapped["Category"] = relationship(back_populates="category")
+    category: Mapped["Category"] = relationship("Category", back_populates="products")
 
     def __str__(self):
         return f"{self.__class__.__name__}(id={self.id}, title={self.title!r})"
