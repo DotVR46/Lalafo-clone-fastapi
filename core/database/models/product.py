@@ -1,10 +1,15 @@
 from sqlalchemy import String, Enum, Numeric, Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+import enum
 from core.database.models import Base
 from core.database.models.mixins import UserRelationMixin
 
-CURRENCY_CHOICES = ("Сом", "USD")
+# CURRENCY_CHOICES = ("Сом", "USD")
+
+
+class Currency(enum.Enum):
+    som = "Сом"
+    usd = "USD"
 
 
 class Category(Base):
@@ -33,12 +38,7 @@ class Product(UserRelationMixin, Base):
     description: Mapped[str] = mapped_column(String(300))
     city: Mapped[str] = mapped_column(String(20))
     price: Mapped[int] = mapped_column(Numeric(8, 0))
-    currency: Mapped[str] = mapped_column(
-        Enum(
-            *CURRENCY_CHOICES,
-            name="Currency choices",
-        )
-    )
+    currency: Mapped[Currency]
     category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
     category: Mapped["Category"] = relationship("Category", back_populates="products")
 
