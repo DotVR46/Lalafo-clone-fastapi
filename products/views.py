@@ -5,7 +5,7 @@ from core.database.db_helper import db_helper
 
 from . import crud
 from .dependencies import get_product_by_id
-from .schemas import Product
+from .schemas import Product, ProductBase, ProductCreate
 
 router = APIRouter()
 
@@ -22,3 +22,11 @@ async def get_single_product(
     product: Product = Depends(get_product_by_id),
 ):
     return product
+
+
+@router.post("/", response_model=ProductBase)
+async def create_product(
+    product_in: ProductCreate,
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    return await crud.create_product(session=session, product_in=product_in)

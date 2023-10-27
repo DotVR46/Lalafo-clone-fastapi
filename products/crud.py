@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload, selectinload
 
 from core.database.models import Product, Category
-from .schemas import ProductBase
+from .schemas import ProductBase, ProductCreate
 
 
 async def get_products(session: AsyncSession) -> list[Product]:
@@ -24,3 +24,10 @@ async def get_single_product(session: AsyncSession, product_id: int) -> Product 
         product_id,
         options=(joinedload(Product.category), joinedload(Product.user)),
     )
+
+
+async def create_product(session: AsyncSession, product_in: ProductCreate):
+    product = Product(**product_in.model_dump())
+    session.add(product)
+    await session.commit()
+    return product
